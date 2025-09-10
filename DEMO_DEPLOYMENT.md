@@ -4,15 +4,31 @@ This version works with **mock data** so you can see how the app looks without s
 
 ## ⚡ Super Quick Deploy
 
+### Option 1: Automated Script (Recommended)
+```bash
+# Windows
+deploy-demo.bat
+
+# Mac/Linux
+chmod +x deploy-demo.sh
+./deploy-demo.sh
+```
+
+### Option 2: Manual Deploy
 ```bash
 # 1. Install Vercel CLI
 npm i -g vercel
 
-# 2. Deploy immediately (no setup needed!)
+# 2. Navigate to client directory
 cd client
-vercel
 
-# 3. That's it! Your app is live!
+# 3. Install dependencies
+npm install
+
+# 4. Deploy to Vercel
+vercel --prod
+
+# 5. That's it! Your app is live!
 ```
 
 ## 🎯 What You'll See
