@@ -10,7 +10,7 @@ import {
   ArrowPathIcon 
 } from '@heroicons/react/24/outline';
 import { Video } from '../types/Video';
-import { videoService } from '../services/videoService';
+import { formatDuration } from '../data/mockVideos';
 import './VideoPlayer.css';
 
 interface VideoPlayerProps {
@@ -18,7 +18,7 @@ interface VideoPlayerProps {
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
-  const { filename } = useParams<{ filename: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [video, setVideo] = useState<Video | null>(null);
@@ -30,19 +30,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (filename) {
-      const decodedFilename = decodeURIComponent(filename);
-      const foundVideo = videos.find(v => v.filename === decodedFilename);
+    if (id) {
+      const foundVideo = videos.find(v => v.id === id);
       if (foundVideo) {
         setVideo(foundVideo);
-      } else {
-        setError('Video not found');
+        setLoading(false);
       }
     }
-  }, [filename, videos]);
+  }, [id, videos]);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -50,7 +47,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
 
     const handleLoadedMetadata = () => {
       setDuration(videoElement.duration);
-      setLoading(false);
     };
 
     const handleTimeUpdate = () => {
@@ -135,18 +131,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
     setCurrentTime(0);
   };
 
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
+  if (loading) {
+    return (
+      <div className="video-player-loading">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
-  if (error) {
+  if (!video) {
     return (
       <div className="video-player-error">
-        <h2>Demo Mode</h2>
-        <p>This is a demo version. In production, this would stream your actual video files.</p>
-        <p>Selected video: {video?.name || 'Unknown'}</p>
+        <h2>Video not found</h2>
+        <p>The requested video could not be found.</p>
         <button onClick={() => navigate('/')} className="back-btn">
           <ArrowLeftIcon className="back-icon" />
           Back to Library
@@ -155,15 +152,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
     );
   }
 
-  if (!video) {
-    return (
-      <div className="video-player-loading">
-        <div className="spinner"></div>
-      </div>
-    );
-  }
-
-  const videoUrl = videoService.getVideoStreamUrl(video.filename);
+  // Use a sample video for demo purposes
+  const demoVideoUrl = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
   return (
     <div className="video-player-container">
@@ -182,16 +172,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
       >
         <video
           ref={videoRef}
-          src={videoUrl}
+          src={demoVideoUrl}
           className="video-element"
           onClick={togglePlay}
         />
-
-        {loading && (
-          <div className="video-loading">
-            <div className="spinner"></div>
-          </div>
-        )}
 
         <div className={`video-controls ${showControls ? 'show' : ''}`}>
           <div className="progress-container">
@@ -231,7 +215,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
               </div>
 
               <div className="time-display">
-                {formatTime(currentTime)} / {formatTime(duration)}
+                {formatDuration(currentTime)} / {formatDuration(duration)}
               </div>
             </div>
 
@@ -247,10 +231,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
       <div className="video-info-panel">
         <div className="video-details">
           <div className="detail-item">
-            <strong>File Size:</strong> {videoService.formatFileSize(video.size)}
+            <strong>File Size:</strong> {video.size ? `${(video.size / 1024 / 1024).toFixed(1)} MB` : 'N/A'}
           </div>
           <div className="detail-item">
             <strong>Format:</strong> {video.extension.toUpperCase()}
+          </div>
+          <div className="detail-item">
+            <strong>Duration:</strong> {video.duration ? formatDuration(video.duration) : 'N/A'}
           </div>
           <div className="detail-item">
             <strong>Last Modified:</strong> {new Date(video.lastModified).toLocaleDateString()}

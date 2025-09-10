@@ -4,36 +4,38 @@ import Header from './components/Header';
 import VideoGrid from './components/VideoGrid';
 import VideoPlayer from './components/VideoPlayer';
 import { Video } from './types/Video';
-import { videoService } from './services/videoService';
+import { mockVideos } from './data/mockVideos';
 import './App.css';
 
 function App() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Simulate loading videos
+    const loadVideos = async () => {
+      setLoading(true);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setVideos(mockVideos);
+      setLoading(false);
+    };
+
     loadVideos();
   }, []);
 
-  const loadVideos = async () => {
-    try {
-      setLoading(true);
-      const videoList = await videoService.getVideos();
-      setVideos(videoList);
-      setError(null);
-    } catch (err) {
-      setError('Failed to load videos. Please check if the server is running.');
-      console.error('Error loading videos:', err);
-    } finally {
+  const handleRefresh = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setVideos([...mockVideos]);
       setLoading(false);
-    }
+    }, 500);
   };
 
   return (
     <Router>
       <div className="App">
-        <Header onRefresh={loadVideos} />
+        <Header onRefresh={handleRefresh} />
         <main className="main-content">
           <Routes>
             <Route 
@@ -41,14 +43,12 @@ function App() {
               element={
                 <VideoGrid 
                   videos={videos} 
-                  loading={loading} 
-                  error={error}
-                  onRefresh={loadVideos}
+                  loading={loading}
                 />
               } 
             />
             <Route 
-              path="/video/:filename" 
+              path="/video/:id" 
               element={<VideoPlayer videos={videos} />} 
             />
           </Routes>

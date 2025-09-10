@@ -6,7 +6,8 @@ export interface Video {
   mimeType: string;
   extension: string;
   lastModified: string;
-  path: string;
+  duration?: number;
+  thumbnail?: string;
 }
 
 export interface VideoMetadata {

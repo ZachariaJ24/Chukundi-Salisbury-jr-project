@@ -63,14 +63,6 @@
   cursor: pointer;
 }
 
-.video-loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-}
-
 .video-controls {
   position: absolute;
   bottom: 0;
@@ -241,7 +233,7 @@
 }
 
 .video-player-error h2 {
-  color: #dc3545;
+  color: #dc2626;
   margin-bottom: 10px;
 }
 

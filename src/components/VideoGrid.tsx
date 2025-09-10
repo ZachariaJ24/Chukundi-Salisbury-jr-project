@@ -1,18 +1,16 @@
 import React from 'react';
 import { PlayIcon, ServerIcon } from '@heroicons/react/24/outline';
 import { Video } from '../types/Video';
-import { videoService } from '../services/videoService';
+import { formatFileSize } from '../data/mockVideos';
 import VideoCard from './VideoCard';
 import './VideoGrid.css';
 
 interface VideoGridProps {
   videos: Video[];
   loading: boolean;
-  error: string | null;
-  onRefresh: () => void;
 }
 
-const VideoGrid: React.FC<VideoGridProps> = ({ videos, loading, error, onRefresh }) => {
+const VideoGrid: React.FC<VideoGridProps> = ({ videos, loading }) => {
   if (loading) {
     return (
       <div className="loading-spinner">
@@ -21,31 +19,7 @@ const VideoGrid: React.FC<VideoGridProps> = ({ videos, loading, error, onRefresh
     );
   }
 
-  if (error) {
-    return (
-      <div className="error-container">
-        <div className="error-message">
-          {error}
-        </div>
-        <button className="retry-btn" onClick={onRefresh}>
-          Try Again
-        </button>
-      </div>
-    );
-  }
-
-  if (videos.length === 0) {
-    return (
-      <div className="empty-state">
-        <PlayIcon className="empty-icon" />
-        <h2>No videos found</h2>
-        <p>Add some video files to your server directory to get started.</p>
-        <button className="retry-btn" onClick={onRefresh}>
-          Refresh
-        </button>
-      </div>
-    );
-  }
+  const totalSize = videos.reduce((total, video) => total + video.size, 0);
 
   return (
     <div className="video-grid-container">
@@ -56,7 +30,7 @@ const VideoGrid: React.FC<VideoGridProps> = ({ videos, loading, error, onRefresh
         </div>
         <div className="stat">
           <ServerIcon className="stat-icon" />
-          <span>{videoService.formatFileSize(videos.reduce((total, video) => total + video.size, 0))}</span>
+          <span>{formatFileSize(totalSize)}</span>
         </div>
       </div>
       

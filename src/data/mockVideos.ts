@@ -9,7 +9,8 @@ export const mockVideos: Video[] = [
     mimeType: 'video/mp4',
     extension: '.mp4',
     lastModified: new Date('2024-01-15').toISOString(),
-    path: '/videos/nature-doc.mp4'
+    duration: 3600, // 1 hour
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Nature+Doc'
   },
   {
     id: 'sample-2',
@@ -19,7 +20,8 @@ export const mockVideos: Video[] = [
     mimeType: 'video/x-matroska',
     extension: '.mkv',
     lastModified: new Date('2024-01-20').toISOString(),
-    path: '/videos/tech-conference.mkv'
+    duration: 7200, // 2 hours
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Tech+Conference'
   },
   {
     id: 'sample-3',
@@ -29,7 +31,8 @@ export const mockVideos: Video[] = [
     mimeType: 'video/x-msvideo',
     extension: '.avi',
     lastModified: new Date('2024-01-25').toISOString(),
-    path: '/videos/cooking-pasta.avi'
+    duration: 1800, // 30 minutes
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Cooking+Tutorial'
   },
   {
     id: 'sample-4',
@@ -39,7 +42,8 @@ export const mockVideos: Video[] = [
     mimeType: 'video/quicktime',
     extension: '.mov',
     lastModified: new Date('2024-01-30').toISOString(),
-    path: '/videos/summer-vibes.mov'
+    duration: 240, // 4 minutes
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Music+Video'
   },
   {
     id: 'sample-5',
@@ -49,7 +53,8 @@ export const mockVideos: Video[] = [
     mimeType: 'video/webm',
     extension: '.webm',
     lastModified: new Date('2024-02-01').toISOString(),
-    path: '/videos/gaming-highlights.webm'
+    duration: 900, // 15 minutes
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Gaming+Highlights'
   },
   {
     id: 'sample-6',
@@ -59,7 +64,8 @@ export const mockVideos: Video[] = [
     mimeType: 'video/mp4',
     extension: '.mp4',
     lastModified: new Date('2024-02-05').toISOString(),
-    path: '/videos/japan-travel.mp4'
+    duration: 2700, // 45 minutes
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Travel+Vlog'
   },
   {
     id: 'sample-7',
@@ -69,7 +75,8 @@ export const mockVideos: Video[] = [
     mimeType: 'video/x-m4v',
     extension: '.m4v',
     lastModified: new Date('2024-02-10').toISOString(),
-    path: '/videos/math-lesson.m4v'
+    duration: 1800, // 30 minutes
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Math+Lesson'
   },
   {
     id: 'sample-8',
@@ -79,23 +86,26 @@ export const mockVideos: Video[] = [
     mimeType: 'video/x-flv',
     extension: '.flv',
     lastModified: new Date('2024-02-15').toISOString(),
-    path: '/videos/workout-session.flv'
+    duration: 1200, // 20 minutes
+    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Workout+Session'
   }
 ];
 
-export const mockVideoMetadata = {
-  duration: 3600, // 1 hour
-  size: 157286400,
-  bitrate: 2000000,
-  video: {
-    codec: 'h264',
-    width: 1920,
-    height: 1080,
-    fps: 30
-  },
-  audio: {
-    codec: 'aac',
-    channels: 2,
-    sampleRate: 44100
+export const formatFileSize = (bytes: number): string => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+};
+
+export const formatDuration = (seconds: number): string => {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+
+  if (hours > 0) {
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
+  return `${minutes}:${secs.toString().padStart(2, '0')}`;
 };
