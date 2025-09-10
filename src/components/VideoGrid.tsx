@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { PlayIcon, ClockIcon, ServerIcon } from '@heroicons/react/24/outline';
+import { PlayIcon, ServerIcon } from '@heroicons/react/24/outline';
 import { Video } from '../types/Video';
 import { videoService } from '../services/videoService';
 import VideoCard from './VideoCard';

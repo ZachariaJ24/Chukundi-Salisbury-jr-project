@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PlayIcon, ClockIcon, ServerIcon, CalendarIcon } from '@heroicons/react/24/outline';
+import { PlayIcon, ServerIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import { Video } from '../types/Video';
 import { videoService } from '../services/videoService';
 import './VideoCard.css';
@@ -11,7 +11,6 @@ interface VideoCardProps {
 
 const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   const [imageError, setImageError] = useState(false);
-  const [metadata, setMetadata] = useState<any>(null);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
