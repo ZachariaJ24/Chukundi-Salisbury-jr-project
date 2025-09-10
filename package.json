@@ -10,8 +10,8 @@
     "build": "cd client && npm run build",
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
     "vercel-build": "cd client && npm run build",
-    "deploy": "vercel --prod",
-    "deploy-client": "cd client && vercel --prod"
+    "deploy-frontend": "cd client && vercel --prod",
+    "deploy": "cd client && vercel --prod"
   },
   "keywords": ["video", "streaming", "plex", "alternative"],
   "author": "Your Name",

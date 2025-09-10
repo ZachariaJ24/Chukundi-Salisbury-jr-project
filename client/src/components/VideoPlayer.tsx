@@ -144,8 +144,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videos }) => {
   if (error) {
     return (
       <div className="video-player-error">
-        <h2>Error</h2>
-        <p>{error}</p>
+        <h2>Demo Mode</h2>
+        <p>This is a demo version. In production, this would stream your actual video files.</p>
+        <p>Selected video: {video?.name || 'Unknown'}</p>
         <button onClick={() => navigate('/')} className="back-btn">
           <ArrowLeftIcon className="back-icon" />
           Back to Library
