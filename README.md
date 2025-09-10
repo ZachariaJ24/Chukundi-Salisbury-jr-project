@@ -1,126 +1,161 @@
-# 🎬 Video Streamer - Plex Alternative
+# Video Streaming App
 
-A beautiful, self-hosted video streaming application that provides a modern interface for accessing your video files. Perfect alternative to Plex Premium!
+A modern, responsive video streaming application built with React and TypeScript. This app provides a clean interface to access and stream video files from your server, serving as an alternative to premium Plex subscriptions.
 
-## ✨ Features
+## Features
 
-- 🎥 **Video Streaming** - Stream videos with seeking and controls
-- 🖼️ **Thumbnail Previews** - Visual video browsing experience
-- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
-- 🎮 **Full Video Controls** - Play, pause, seek, volume, fullscreen
-- 📊 **Video Metadata** - File size, duration, format, and dates
-- 🎨 **Modern UI** - Beautiful Hero UI design system
-- ⚡ **Fast Performance** - Optimized for smooth streaming
-- 🔒 **No Secrets Required** - Works out of the box with demo data
+- 🎬 **Modern Video Player**: Custom-built video player with full controls
+- 📱 **Responsive Design**: Works perfectly on desktop, tablet, and mobile
+- 🔍 **Search & Filter**: Find videos quickly with search and genre filtering
+- 📊 **Video Metadata**: Display duration, file size, quality, and more
+- 🎨 **Beautiful UI**: Dark theme with smooth animations and transitions
+- ⚡ **Fast Loading**: Optimized for performance and quick access
 
-## 🚀 Quick Deploy
+## Getting Started
 
-### Deploy to Vercel (Recommended)
+### Prerequisites
 
-1. **Fork this repository**
-2. **Go to [Vercel](https://vercel.com)**
-3. **Import your forked repository**
-4. **Deploy** - That's it! 🎉
+- Node.js (version 14 or higher)
+- npm or yarn
 
-### Deploy from GitHub
+### Installation
 
+1. Clone the repository:
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/video-streaming-app.git
+git clone <your-repo-url>
 cd video-streaming-app
-
-# Install dependencies
-npm install
-
-# Build the app
-npm run build
-
-# Deploy to Vercel
-npx vercel --prod
 ```
 
-## 🎯 Demo Features
+2. Install dependencies:
+```bash
+npm install
+```
 
-The app comes with 8 sample videos showcasing:
+3. Start the development server:
+```bash
+npm start
+```
 
-- **Nature Documentary** (150MB, 1 hour)
-- **Tech Conference** (500MB, 2 hours)
-- **Cooking Tutorial** (85MB, 30 minutes)
-- **Music Video** (70MB, 4 minutes)
-- **Gaming Highlights** (200MB, 15 minutes)
-- **Travel Vlog** (300MB, 45 minutes)
-- **Math Lesson** (120MB, 30 minutes)
-- **Workout Session** (100MB, 20 minutes)
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## 🎨 UI Highlights
+### Building for Production
 
-- **Dark Theme** - Professional slate color scheme
-- **Hero Icons** - Modern iconography throughout
-- **Smooth Animations** - Hover effects and transitions
-- **Responsive Grid** - Adapts to any screen size
-- **Video Cards** - Beautiful preview cards with metadata
-- **Full Player** - Complete video player with all controls
+```bash
+npm run build
+```
 
-## 🔧 Technology Stack
+This builds the app for production to the `build` folder.
 
-- **React 18** - Modern React with hooks
-- **TypeScript** - Full type safety
-- **React Router** - Client-side routing
-- **Hero Icons** - Beautiful icon set
-- **CSS3** - Modern styling with animations
-- **Vercel** - Lightning-fast deployment
+## Deployment on Vercel
 
-## 📱 Supported Video Formats
+This app is configured for easy deployment on Vercel:
 
-- MP4 (.mp4)
-- MKV (.mkv)
-- AVI (.avi)
-- MOV (.mov)
-- WebM (.webm)
-- M4V (.m4v)
-- FLV (.flv)
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy with zero configuration
 
-## 🎉 Why Choose This Over Plex?
+The app includes:
+- `vercel.json` configuration
+- API routes for video streaming
+- Optimized build settings
 
-✅ **Free Forever** - No subscription fees  
-✅ **No User Limits** - Unlimited users  
-✅ **Full Control** - Your data, your server  
-✅ **Modern UI** - Beautiful, responsive design  
-✅ **Easy Setup** - Deploy in minutes  
-✅ **Customizable** - Open source and modifiable  
+## Configuration
 
-## 🚀 Perfect For
+### Video Server Setup
 
-- **Personal Use** - Stream your own video collection
-- **Family Sharing** - Share videos with family and friends
-- **Small Teams** - Internal video sharing
-- **Portfolio** - Showcase your video projects
-- **Demos** - Present video content professionally
+To connect to your actual video server, you'll need to:
 
-## 📋 Getting Started
+1. **Update the API endpoint** in `src/components/VideoGrid.tsx`:
+```typescript
+// Change this line:
+videoUrl={`/api/videos/${selectedVideo.id}/stream`}
 
-1. **Deploy the app** using one of the methods above
-2. **Open your deployed URL**
-3. **Browse the demo videos** to see the interface
-4. **Click any video** to open the player
-5. **Enjoy your Plex alternative!** 🎬
+// To your server endpoint:
+videoUrl={`https://your-server.com/api/videos/${selectedVideo.id}/stream`}
+```
 
-## 🔮 Future Enhancements
+2. **Replace mock data** in `src/data/mockVideos.ts` with actual API calls to your server
 
-- **Real Backend Integration** - Connect to actual video files
-- **User Authentication** - Add login and user management
-- **Playlists** - Create and manage video playlists
-- **Search** - Search through your video library
-- **Categories** - Organize videos by genre or type
+3. **Configure CORS** on your video server to allow requests from your domain
 
-## 📄 License
+### Server Requirements
 
-MIT License - Feel free to use, modify, and distribute!
+Your video server should support:
+- **Range requests** for video seeking
+- **CORS headers** for cross-origin requests
+- **Video streaming** with proper MIME types
+- **Authentication** (if needed)
 
-## 🤝 Contributing
+## Project Structure
 
-Contributions are welcome! Feel free to submit issues and pull requests.
+```
+src/
+├── components/          # React components
+│   ├── Header.tsx      # App header with logo and controls
+│   ├── VideoCard.tsx   # Individual video card component
+│   ├── VideoGrid.tsx   # Grid layout for videos
+│   └── VideoPlayer.tsx # Custom video player
+├── data/
+│   └── mockVideos.ts   # Sample video data
+├── types/
+│   └── Video.ts        # TypeScript interfaces
+├── App.tsx             # Main app component
+└── index.tsx           # App entry point
+```
 
----
+## Customization
 
-**Ready to replace Plex? Deploy now and start streaming! 🚀**
+### Adding New Features
+
+- **User Authentication**: Add login/logout functionality
+- **Playlists**: Create and manage video playlists
+- **Favorites**: Mark videos as favorites
+- **Comments**: Add commenting system
+- **Ratings**: Rate and review videos
+
+### Styling
+
+The app uses CSS modules for styling. Main color scheme:
+- Primary: `#ff6b6b` (Red)
+- Secondary: `#4ecdc4` (Teal)
+- Background: `#0a0a0a` (Dark)
+- Cards: `#1a1a1a` (Dark Gray)
+
+## Security Considerations
+
+- Implement proper authentication and authorization
+- Validate all user inputs
+- Use HTTPS for video streaming
+- Implement rate limiting
+- Sanitize file paths to prevent directory traversal
+
+## Performance Optimization
+
+- Enable video compression
+- Implement lazy loading for video thumbnails
+- Use CDN for video delivery
+- Optimize video formats (WebM, MP4)
+- Implement caching strategies
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Support
+
+For questions or support, please open an issue on GitHub.

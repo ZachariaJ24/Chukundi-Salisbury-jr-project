@@ -1,111 +1,86 @@
 import { Video } from '../types/Video';
 
+// Mock video data - replace with actual API calls to your server
 export const mockVideos: Video[] = [
   {
-    id: 'sample-1',
-    name: 'Amazing Nature Documentary',
-    filename: 'nature-doc.mp4',
-    size: 157286400, // 150MB
-    mimeType: 'video/mp4',
-    extension: '.mp4',
-    lastModified: new Date('2024-01-15').toISOString(),
+    id: '1',
+    title: 'Sample Movie 1',
+    description: 'A great sample movie for testing the video streaming app.',
+    thumbnail: 'https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Movie+1',
+    duration: 7200, // 2 hours in seconds
+    fileSize: 1500000000, // 1.5GB
+    uploadDate: '2024-01-15',
+    genre: 'Action',
+    year: 2024,
+    quality: '1080p'
+  },
+  {
+    id: '2',
+    title: 'Sample Movie 2',
+    description: 'Another excellent movie with amazing visuals and story.',
+    thumbnail: 'https://via.placeholder.com/300x200/4ecdc4/ffffff?text=Movie+2',
+    duration: 5400, // 1.5 hours
+    fileSize: 1200000000, // 1.2GB
+    uploadDate: '2024-01-10',
+    genre: 'Drama',
+    year: 2023,
+    quality: '4K'
+  },
+  {
+    id: '3',
+    title: 'Sample Documentary',
+    description: 'An informative documentary about technology and innovation.',
+    thumbnail: 'https://via.placeholder.com/300x200/45b7d1/ffffff?text=Documentary',
     duration: 3600, // 1 hour
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Nature+Doc'
+    fileSize: 800000000, // 800MB
+    uploadDate: '2024-01-05',
+    genre: 'Documentary',
+    year: 2024,
+    quality: '720p'
   },
   {
-    id: 'sample-2',
-    name: 'Tech Conference 2024',
-    filename: 'tech-conference.mkv',
-    size: 524288000, // 500MB
-    mimeType: 'video/x-matroska',
-    extension: '.mkv',
-    lastModified: new Date('2024-01-20').toISOString(),
-    duration: 7200, // 2 hours
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Tech+Conference'
-  },
-  {
-    id: 'sample-3',
-    name: 'Cooking Tutorial - Pasta',
-    filename: 'cooking-pasta.avi',
-    size: 89128960, // 85MB
-    mimeType: 'video/x-msvideo',
-    extension: '.avi',
-    lastModified: new Date('2024-01-25').toISOString(),
+    id: '4',
+    title: 'Sample Comedy Show',
+    description: 'A hilarious comedy show that will make you laugh out loud.',
+    thumbnail: 'https://via.placeholder.com/300x200/f9ca24/ffffff?text=Comedy',
     duration: 1800, // 30 minutes
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Cooking+Tutorial'
+    fileSize: 400000000, // 400MB
+    uploadDate: '2024-01-01',
+    genre: 'Comedy',
+    year: 2023,
+    quality: '1080p'
   },
   {
-    id: 'sample-4',
-    name: 'Music Video - Summer Vibes',
-    filename: 'summer-vibes.mov',
-    size: 73400320, // 70MB
-    mimeType: 'video/quicktime',
-    extension: '.mov',
-    lastModified: new Date('2024-01-30').toISOString(),
-    duration: 240, // 4 minutes
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Music+Video'
+    id: '5',
+    title: 'Sample Sci-Fi Adventure',
+    description: 'An epic science fiction adventure set in the distant future.',
+    thumbnail: 'https://via.placeholder.com/300x200/6c5ce7/ffffff?text=Sci-Fi',
+    duration: 9000, // 2.5 hours
+    fileSize: 2000000000, // 2GB
+    uploadDate: '2023-12-28',
+    genre: 'Sci-Fi',
+    year: 2023,
+    quality: '4K'
   },
   {
-    id: 'sample-5',
-    name: 'Gaming Highlights',
-    filename: 'gaming-highlights.webm',
-    size: 209715200, // 200MB
-    mimeType: 'video/webm',
-    extension: '.webm',
-    lastModified: new Date('2024-02-01').toISOString(),
-    duration: 900, // 15 minutes
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Gaming+Highlights'
-  },
-  {
-    id: 'sample-6',
-    name: 'Travel Vlog - Japan',
-    filename: 'japan-travel.mp4',
-    size: 314572800, // 300MB
-    mimeType: 'video/mp4',
-    extension: '.mp4',
-    lastModified: new Date('2024-02-05').toISOString(),
-    duration: 2700, // 45 minutes
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Travel+Vlog'
-  },
-  {
-    id: 'sample-7',
-    name: 'Educational Series - Math',
-    filename: 'math-lesson.m4v',
-    size: 125829120, // 120MB
-    mimeType: 'video/x-m4v',
-    extension: '.m4v',
-    lastModified: new Date('2024-02-10').toISOString(),
-    duration: 1800, // 30 minutes
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Math+Lesson'
-  },
-  {
-    id: 'sample-8',
-    name: 'Fitness Workout',
-    filename: 'workout-session.flv',
-    size: 104857600, // 100MB
-    mimeType: 'video/x-flv',
-    extension: '.flv',
-    lastModified: new Date('2024-02-15').toISOString(),
-    duration: 1200, // 20 minutes
-    thumbnail: 'https://via.placeholder.com/320x240/1e293b/3b82f6?text=Workout+Session'
+    id: '6',
+    title: 'Sample Horror Film',
+    description: 'A spine-chilling horror movie that will keep you on the edge of your seat.',
+    thumbnail: 'https://via.placeholder.com/300x200/2d3436/ffffff?text=Horror',
+    duration: 6300, // 1.75 hours
+    fileSize: 1100000000, // 1.1GB
+    uploadDate: '2023-12-20',
+    genre: 'Horror',
+    year: 2023,
+    quality: '1080p'
   }
 ];
 
-export const formatFileSize = (bytes: number): string => {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-};
-
-export const formatDuration = (seconds: number): string => {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = Math.floor(seconds % 60);
-
-  if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  }
-  return `${minutes}:${secs.toString().padStart(2, '0')}`;
+// Function to simulate API call delay
+export const fetchVideos = async (): Promise<Video[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(mockVideos);
+    }, 1000); // Simulate 1 second delay
+  });
 };
